@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="inicio">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 1">
+                <a class="nav-link" routerLink="solicitar-cita">Solicitar cita</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 1">
+                <a class="nav-link" routerLink="consultar-cita">Consultar citas</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 1">
+                <a class="nav-link" routerLink="cancelar-cita">Cancelar cita</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <button 
+                class="btn btn-outline-primary btn-sm botones" 
+                type="button" 
+                routerLink="signin" 
+                *ngIf="generalService.rolUsuario == 0">Registrarse</button>
+
+            <button 
+                class="btn btn-outline-primary btn-sm botones" 
+                type="button" 
+                routerLink="login"
+                *ngIf="generalService.rolUsuario == 0">Entrar</button>
+
+            <button 
+                class="btn btn-outline-primary btn-sm botones" 
+                type="button" 
+                (click)="logout()"
+                *ngIf="generalService.rolUsuario == 1">Salir</button>
+        </form>
+    </div>
+</nav>
