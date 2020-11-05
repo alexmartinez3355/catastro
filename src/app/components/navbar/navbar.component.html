@@ -18,23 +18,27 @@
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <button 
-                class="btn btn-outline-primary btn-sm botones" 
-                type="button" 
-                routerLink="signin" 
+            <button class="btn btn-outline-primary btn-sm botones" type="button" routerLink="signin"
                 *ngIf="generalService.rolUsuario == 0">Registrarse</button>
 
-            <button 
-                class="btn btn-outline-primary btn-sm botones" 
-                type="button" 
-                routerLink="login"
+            <button class="btn btn-outline-primary btn-sm botones" type="button" routerLink="login"
                 *ngIf="generalService.rolUsuario == 0">Entrar</button>
 
-            <button 
+            <!-- <button 
                 class="btn btn-outline-primary btn-sm botones" 
                 type="button" 
                 (click)="logout()"
-                *ngIf="generalService.rolUsuario == 1">Salir</button>
+                *ngIf="generalService.rolUsuario == 1">Salir</button> -->
+            <div class="dropdown" *ngIf="generalService.rolUsuario == 1">
+                <button class="btn btn-outline-primary dropdown-toggle botones" type="button" id="usuarioDropdown"
+                    data-toggle="dropdown">
+                    {{generalService.userLogin.nombre}} {{generalService.userLogin.aPaterno}} {{generalService.userLogin.aMaterno}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="usuarioDropdown">
+                    <!-- <a class="dropdown-item" (click)="logout()">Cerrar sesión</a> -->
+                    <button class="dropdown-item" (click)="logout()" >Cerrar sesión</button>
+                </div>
+            </div>
         </form>
     </div>
 </nav>

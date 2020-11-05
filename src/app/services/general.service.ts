@@ -1,4 +1,4 @@
-import { Usuarios } from './../models/usuarios.model';
+import { UsuarioModel } from './../models/usuarios.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,16 +11,15 @@ export class GeneralService {
 
   rolUsuario = 0;
 
+  userLogin: UsuarioModel;
+
   constructor(private http: HttpClient) {
+    this.userLogin = new UsuarioModel();
   }
 
   asignarRolUsuario(rol: number): void{
     this.rolUsuario = rol;
     this.setSesionStorage(this.rolUsuario, 'rol_usuario');
-  }
-
-  login(usuario: Usuarios): any{
-    return this.http.post(`${this.url}/inicio-sesion.php`, JSON.stringify(usuario));
   }
 
   setLocalStorage(datos: any, variable: string): void {
@@ -39,9 +38,21 @@ export class GeneralService {
     return sessionStorage.getItem(key);
   }
 
+  login(usuario: UsuarioModel): any{
+    return this.http.post(`${this.url}/inicio-sesion.php`, JSON.stringify(usuario));
+  }
+
   logout(): void{
     this.asignarRolUsuario(0);
     sessionStorage.clear();
     localStorage.clear();
+  }
+
+  sigin(usuario: UsuarioModel): any{
+    return this.http.post(`${this.url}/registrar-usuarios.php`, JSON.stringify(usuario));
+  }
+
+  setUserLogin(): void{
+    this.userLogin = JSON.parse(this.getLocalStorage('usuario_logueado'));
   }
 }

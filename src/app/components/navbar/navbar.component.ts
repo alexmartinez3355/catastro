@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
     if (sessionStorage.getItem('rol_usuario')) {
       // tslint:disable-next-line: radix
       this.generalService.asignarRolUsuario(parseInt(sessionStorage.getItem('rol_usuario')));
+      this.generalService.setUserLogin();
     }
   }
 

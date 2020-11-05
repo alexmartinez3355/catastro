@@ -1,10 +1,9 @@
-import { Usuarios } from './../../models/usuarios.model';
+import { UsuarioModel } from './../../models/usuarios.model';
 import { GeneralService } from './../../services/general.service';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { faUserCircle, faLock } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +15,7 @@ export class LoginComponent implements OnInit {
   faUserCircle = faUserCircle;
   faLock = faLock;
 
-  usuario: Usuarios = {
+  usuario: UsuarioModel = {
   };
 
   rolUsuario = 1;
@@ -28,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   iniciarSesion(): void {
     console.log('Datos usuarios a enviar: ', this.usuario);
-    this.generalService.login(this.usuario).subscribe((datos: Usuarios) => {
+    this.generalService.login(this.usuario).subscribe((datos: UsuarioModel) => {
       if (Object.keys(datos).length >= 1) {
         this.router.navigateByUrl('inicio');
         this.generalService.asignarRolUsuario(this.rolUsuario);
@@ -42,7 +41,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  usuarioEncontrado(usuario: Usuarios): void{
+  usuarioEncontrado(usuario: UsuarioModel): void{
     Swal.fire({
       icon: 'success',
       title: 'Bien venido',

@@ -1,10 +1,12 @@
-export class Usuarios {
+export class UsuarioModel {
     idUsuario?: number;
     nombre?: string;
     aPaterno?: string;
     aMaterno?: string;
     email?: string;
     pass?: string;
+    telefono?: string;
+    fechaAlta?: string;
 
     constructor(){
         this.idUsuario = null;
@@ -13,5 +15,7 @@ export class Usuarios {
         this.aMaterno = null;
         this.email = null;
         this.pass = null;
+        this.telefono = null;
+        this.fechaAlta = null;
     }
 }
