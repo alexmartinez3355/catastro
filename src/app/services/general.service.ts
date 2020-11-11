@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GeneralService {
 
-  url = 'http://localhost/proyecto-catastro/login';
+  url = 'http://localhost/catastro-backend/login';
 
   rolUsuario = 0;
 
