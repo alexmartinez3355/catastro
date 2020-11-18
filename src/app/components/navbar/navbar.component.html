@@ -7,36 +7,35 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 1">
+            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 'cliente'">
                 <a class="nav-link" routerLink="solicitar-cita">Solicitar cita</a>
             </li>
-            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 1">
+            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 'cliente'">
                 <a class="nav-link" routerLink="consultar-cita">Consultar citas</a>
             </li>
-            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 1">
+            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 'cliente'">
                 <a class="nav-link" routerLink="cancelar-cita">Cancelar cita</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 'admin'">
+                <a class="nav-link" routerLink="citas">Citas</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <button class="btn btn-outline-primary btn-sm botones" type="button" routerLink="signin"
-                *ngIf="generalService.rolUsuario == 0">Registrarse</button>
+                *ngIf="generalService.rolUsuario == ''">Registrarse</button>
 
             <button class="btn btn-outline-primary btn-sm botones" type="button" routerLink="login"
-                *ngIf="generalService.rolUsuario == 0">Entrar</button>
+                *ngIf="generalService.rolUsuario == ''">Entrar</button>
 
-            <!-- <button 
-                class="btn btn-outline-primary btn-sm botones" 
-                type="button" 
-                (click)="logout()"
-                *ngIf="generalService.rolUsuario == 1">Salir</button> -->
-            <div class="dropdown" *ngIf="generalService.rolUsuario == 1">
+            <div class="dropdown" *ngIf="generalService.rolUsuario">
                 <button class="btn btn-outline-primary dropdown-toggle botones" type="button" id="usuarioDropdown"
                     data-toggle="dropdown">
-                    {{generalService.userLogin.nombre}} {{generalService.userLogin.aPaterno}} {{generalService.userLogin.aMaterno}}
+                    {{generalService.userLogin.nombre}} {{generalService.userLogin.apellidoPaterno}} {{generalService.userLogin.apellidoMaterno}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="usuarioDropdown">
-                    <!-- <a class="dropdown-item" (click)="logout()">Cerrar sesión</a> -->
-                    <button class="dropdown-item" (click)="logout()" >Cerrar sesión</button>
+                    <a class="dropdown-item" routerLink="configuracion"><fa-icon [icon]="configuracion" size="lg"></fa-icon>    Configuración</a>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" (click)="logout()"> <fa-icon [icon]="salir" size="lg"></fa-icon>   Cerrar sesión</button>
                 </div>
             </div>
         </form>

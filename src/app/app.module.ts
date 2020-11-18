@@ -16,6 +16,9 @@ import { SolicitarCitaComponent } from './pages/solicitar-cita/solicitar-cita.co
 import { ConsultarCitaComponent } from './pages/consultar-cita/consultar-cita.component';
 import { CancelarCitaComponent } from './pages/cancelar-cita/cancelar-cita.component';
 import { SigninComponent } from './pages/signin/signin.component';
+import { RestringidoComponent } from './pages/restringido/restringido.component';
+import { CitasComponent } from './pages/citas/citas.component';
+import { ConfiguracionComponent } from './pages/configuracion/configuracion.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { SigninComponent } from './pages/signin/signin.component';
     SolicitarCitaComponent,
     ConsultarCitaComponent,
     CancelarCitaComponent,
-    SigninComponent
+    SigninComponent,
+    RestringidoComponent,
+    CitasComponent,
+    ConfiguracionComponent
   ],
   imports: [
     BrowserModule,

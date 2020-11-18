@@ -13,11 +13,16 @@ export class ValidatorsService {
       const passControl1 = formgroup.controls[pass1];
       const passControl2 = formgroup.controls[pass2];
 
-      if (passControl1.value === passControl2.value) {
-        passControl2.setErrors(null);
+      if (passControl2.value === ''){
+        passControl2.setErrors({ noSonIguales: true});
       }
       else {
-        passControl2.setErrors({ noSonIguales: true});
+        if (passControl1.value === passControl2.value) {
+          passControl2.setErrors(null);
+        }
+        else{
+          passControl2.setErrors({ noSonIguales: true});
+        }
       }
     };
   }

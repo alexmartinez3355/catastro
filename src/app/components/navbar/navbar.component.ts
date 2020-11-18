@@ -1,6 +1,8 @@
+import { UsuarioModel } from './../../models/usuarios.model';
 import { Router } from '@angular/router';
 import { GeneralService } from './../../services/general.service';
 import { Component, OnInit } from '@angular/core';
+import { faSignOutAlt, faCog } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -9,21 +11,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public generalService: GeneralService, private router: Router) { }
+  salir = faSignOutAlt;
+  configuracion = faCog;
 
-  ngOnInit(): void {
+  usuarioLogin: UsuarioModel;
+
+  constructor(public generalService: GeneralService, private router: Router) {
     this.verificarLogueo();
   }
 
+  ngOnInit(): void {
+
+  }
+
   verificarLogueo(): void {
-    if (sessionStorage.getItem('rol_usuario')) {
-      // tslint:disable-next-line: radix
-      this.generalService.asignarRolUsuario(parseInt(sessionStorage.getItem('rol_usuario')));
-      this.generalService.setUserLogin();
+    if (sessionStorage.getItem('usuario_activo')) {
+      this.usuarioLogin = JSON.parse(this.generalService.getSessionStorage('usuario_activo'));
+      this.generalService.setUserLogin(this.usuarioLogin);
+      this.generalService.asignarRolUsuario(this.usuarioLogin.rol);
     }
   }
 
-  logout(): void{
+  logout(): void {
     this.router.navigateByUrl('login');
     this.generalService.logout();
   }

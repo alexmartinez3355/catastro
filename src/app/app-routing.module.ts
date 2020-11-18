@@ -1,3 +1,6 @@
+import { ConfiguracionComponent } from './pages/configuracion/configuracion.component';
+import { CitasComponent } from './pages/citas/citas.component';
+import { RestringidoComponent } from './pages/restringido/restringido.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { CancelarCitaComponent } from './pages/cancelar-cita/cancelar-cita.component';
 import { ConsultarCitaComponent } from './pages/consultar-cita/consultar-cita.component';
@@ -28,6 +31,15 @@ const routes: Routes = [
   },
   {
     path: 'signin', component: SigninComponent
+  },
+  {
+    path: 'restringido', component: RestringidoComponent
+  },
+  {
+    path: 'citas', component: CitasComponent
+  },
+  {
+    path: 'configuracion', component: ConfiguracionComponent
   }
 ];
 

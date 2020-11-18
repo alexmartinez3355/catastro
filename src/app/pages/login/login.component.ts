@@ -4,6 +4,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { faUserCircle, faLock } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -15,29 +16,39 @@ export class LoginComponent implements OnInit {
   faUserCircle = faUserCircle;
   faLock = faLock;
 
-  usuario: UsuarioModel = {
-  };
+  inicioSesion: FormGroup;
 
-  rolUsuario = 1;
+  usuario: UsuarioModel;
 
-  constructor(private generalService: GeneralService, private router: Router) { }
+  constructor(private generalService: GeneralService, private router: Router, private fb: FormBuilder) { 
+    this.usuario = new UsuarioModel();
+    this.crearFormulario();
+  }
 
   ngOnInit(): void {
   }
 
-  iniciarSesion(): void {
-    console.log('Datos usuarios a enviar: ', this.usuario);
+  login(): void {
+    this.usuario.email = this.inicioSesion.get('email').value;
+    this.usuario.pass = this.inicioSesion.get('pass').value;
     this.generalService.login(this.usuario).subscribe((datos: UsuarioModel) => {
       if (Object.keys(datos).length >= 1) {
-        this.router.navigateByUrl('inicio');
-        this.generalService.asignarRolUsuario(this.rolUsuario);
-        this.generalService.setLocalStorage(datos, 'usuario_logueado');
         this.usuarioEncontrado(datos);
+        this.generalService.setSesionStorage(datos, 'usuario_activo');
+        this.generalService.setUserLogin(datos);
+        this.generalService.asignarRolUsuario(datos.rol);
+        this.router.navigateByUrl('inicio');
       }
       else{
-        console.log('Usuario no registrado');
         this.usuarioNoEncontrado();
       }
+    });
+  }
+
+  crearFormulario(): void {
+    this.inicioSesion = this.fb.group({
+      email: ['', [Validators.required]],
+      pass: ['', [Validators.required]]
     });
   }
 

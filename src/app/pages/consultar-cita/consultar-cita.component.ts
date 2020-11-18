@@ -1,3 +1,4 @@
+import { GeneralService } from './../../services/general.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConsultarCitaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private generalService: GeneralService) { }
 
   ngOnInit(): void {
+    this.generalService.validarAccesoCliente();
   }
 
 }

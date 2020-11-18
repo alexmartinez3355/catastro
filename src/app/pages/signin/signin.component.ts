@@ -36,7 +36,12 @@ export class SigninComponent implements OnInit {
         control.markAllAsTouched();
       });
     }
-    this.usuarioSigin = this.registro.value;
+    this.usuarioSigin.nombre = this.registro.get('nombre').value;
+    this.usuarioSigin.apellidoPaterno = this.registro.get('aPaterno').value;
+    this.usuarioSigin.apellidoMaterno = this.registro.get('aMaterno').value;
+    this.usuarioSigin.email = this.registro.get('email').value;
+    this.usuarioSigin.pass = this.registro.get('pass').value;
+    this.usuarioSigin.telefono = this.registro.get('telefono').value;
     this.usuarioSigin.fechaAlta = this.obtenerFechaActual();
     this.generalService.sigin(this.usuarioSigin).subscribe(datos => {
       if (datos === 'OK') {
@@ -110,8 +115,8 @@ export class SigninComponent implements OnInit {
       aMaterno: ['', [Validators.required, Validators.minLength(2)]],
       telefono: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      pass: ['', [Validators.required, Validators.minLength(3)]],
-      pass2: ['', Validators.required]
+      pass: ['', [Validators.required, Validators.minLength(8)]],
+      pass2: ['', [Validators.required, Validators.minLength(8)]]
     },
       {
         validators: this.validadores.passwordsIguales('pass', 'pass2')
@@ -180,7 +185,7 @@ export class SigninComponent implements OnInit {
     Swal.fire({
       icon: 'success',
       title: 'Registro exitoso',
-      text: `Usuario: ${usuario.nombre} ${usuario.aPaterno} ${usuario.aMaterno} ha sido registrado correctamente. Ya puedes iniciar sesión`
+      text: `Usuario: ${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno} ha sido registrado correctamente. Ya puedes iniciar sesión`
     });
   }
 }

@@ -1,1 +1,24 @@
-<p>solicitar-cita works!</p>
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="solicitudCita" (ngSubmit)="solicitarCita()">
+            <div class="row">
+                <div class="col">
+                    <label>Seleccione el trámite a realizar</label>
+                    <select class="form-control" formControlName="tramite">
+                        <option *ngFor="let tramite of listaTramites">{{tramite.nombreTramite}}</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Fecha</label>
+                    <input class="form-control" type="date" formControlName="fecha" (click)="fechaSeleccionada()">
+                </div>
+                <div class="col">
+                    <label>Hora</label>
+                    <select class="form-control" formControlName="hora">
+                        <option *ngFor="let hora of listaHorarios">{{hora.horario}}</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

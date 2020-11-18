@@ -1,23 +1,24 @@
 import { UsuarioModel } from './../models/usuarios.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeneralService {
 
-  url = 'http://localhost/catastro-backend/login';
-
-  rolUsuario = 0;
-
   userLogin: UsuarioModel;
 
-  constructor(private http: HttpClient) {
+  rolUsuario = '';
+
+  url = 'http://localhost/catastro-backend/login';
+
+  constructor(private http: HttpClient, private router: Router) {
     this.userLogin = new UsuarioModel();
   }
 
-  asignarRolUsuario(rol: number): void{
+  asignarRolUsuario(rol: string): void{
     this.rolUsuario = rol;
     this.setSesionStorage(this.rolUsuario, 'rol_usuario');
   }
@@ -34,7 +35,7 @@ export class GeneralService {
     sessionStorage.setItem(variable, JSON.stringify(datos));
   }
 
-  getSesionStorage(key: string): string{
+  getSessionStorage(key: string): string{
     return sessionStorage.getItem(key);
   }
 
@@ -43,7 +44,6 @@ export class GeneralService {
   }
 
   logout(): void{
-    this.asignarRolUsuario(0);
     sessionStorage.clear();
     localStorage.clear();
   }
@@ -52,7 +52,25 @@ export class GeneralService {
     return this.http.post(`${this.url}/registrar-usuarios.php`, JSON.stringify(usuario));
   }
 
-  setUserLogin(): void{
-    this.userLogin = JSON.parse(this.getLocalStorage('usuario_logueado'));
+  setUserLogin(user: UsuarioModel): void{
+    this.userLogin = user;
+  }
+
+  validarAccesoCliente(): void{
+    if (this.router.isActive('solicitar-cita', true)
+        || this.router.isActive('consultar-cita', true)
+        || this.router.isActive('cancelar-cita', true)) {
+      if (this.userLogin.rol !== 'cliente') {
+        this.router.navigateByUrl('restringido');
+      }
+    }
+  }
+
+  validarAccesoAdmin(): void {
+    if (this.router.isActive('citas', true)) {
+      if (this.userLogin.rol !== 'admin') {
+        this.router.navigateByUrl('restringido');
+      }
+    }
   }
 }
