@@ -1,1 +1,35 @@
-<p>consultar-cita works!</p>
+<div class="card">
+    <div class="card-header">
+        Lista de citas solicitadas
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-3">
+                <label>Filtrar por fecha</label>
+                <input class="form-control" type="date">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Folio</th>
+                        <th>Asunto</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cita of listaCitas">
+                        <th scope="row">{{cita.folioCita}}</th>
+                        <td>{{cita.tramite}}</td>
+                        <td>{{cita.fecha}}</td>
+                        <td>{{cita.hora}}</td>
+                        <td>{{cita.estado}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

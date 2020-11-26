@@ -116,8 +116,9 @@ export class SolicitarCitaComponent implements OnInit {
     this.solicitarCitaService.getListaCitasFecha(data).subscribe((datos) => {
       if (Object.keys(datos).length >= 1) {
         for (const i of datos) {
-          this.horarios = this.listaHorarios.filter(horario => horario.idHorario !== i.hora);
+          this.listaHorarios = this.listaHorarios.filter(horario => horario.idHorario !== i.hora);
         }
+        this.horarios = this.listaHorarios;
       }
       else {
         this.horarios = this.listaHorarios;
@@ -145,6 +146,7 @@ export class SolicitarCitaComponent implements OnInit {
         return this.solicitud.get('tramite').markAsTouched();
       }
       if (this.solicitud.get('fecha').valid) {
+        this.valueHorario = true;
         const t: string = this.solicitud.get('tramite').value;
         const tramiteS = this.listaTramites.filter(tramite => tramite.nombreTramite === t.trim());
         const d: DepartamentoModel = tramiteS[0].departamento;
