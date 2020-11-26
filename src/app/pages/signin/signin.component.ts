@@ -36,13 +36,15 @@ export class SigninComponent implements OnInit {
         control.markAllAsTouched();
       });
     }
-    this.usuarioSigin.nombre = this.registro.get('nombre').value;
-    this.usuarioSigin.apellidoPaterno = this.registro.get('aPaterno').value;
-    this.usuarioSigin.apellidoMaterno = this.registro.get('aMaterno').value;
-    this.usuarioSigin.email = this.registro.get('email').value;
-    this.usuarioSigin.pass = this.registro.get('pass').value;
-    this.usuarioSigin.telefono = this.registro.get('telefono').value;
-    this.usuarioSigin.fechaAlta = this.obtenerFechaActual();
+    this.usuarioSigin.setNombre = this.registro.get('nombre').value;
+    this.usuarioSigin.setApellidoPaterno = this.registro.get('aPaterno').value;
+    this.usuarioSigin.setApellidoMaterno = this.registro.get('aMaterno').value;
+    this.usuarioSigin.setEmail = this.registro.get('email').value;
+    this.usuarioSigin.setPass = this.registro.get('pass').value;
+    this.usuarioSigin.setTelefono = this.registro.get('telefono').value;
+    this.usuarioSigin.setFechaAlta = this.obtenerFechaActual();
+    this.usuarioSigin.setEstado = 'activo';
+    this.usuarioSigin.setRol = 'cliente';
     this.generalService.sigin(this.usuarioSigin).subscribe(datos => {
       if (datos === 'OK') {
         this.usuarioRegistrado(this.usuarioSigin);
@@ -132,7 +134,6 @@ export class SigninComponent implements OnInit {
     let toDay: string;
 
     let limite = 0;
-    const reiniciar = 1;
 
     /* Validar mes de febrero */
     if (month === '02') {
@@ -185,7 +186,7 @@ export class SigninComponent implements OnInit {
     Swal.fire({
       icon: 'success',
       title: 'Registro exitoso',
-      text: `Usuario: ${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno} ha sido registrado correctamente. Ya puedes iniciar sesión`
+      text: `Usuario: ${usuario.nombreCompleto} ha sido registrado correctamente. Ya puedes iniciar sesión`
     });
   }
 }

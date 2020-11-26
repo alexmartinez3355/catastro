@@ -1,0 +1,15 @@
+.subtitulos {
+    text-align: center;
+}
+
+.cajas {
+    height: 18rem;
+}
+
+.listas {
+    text-align: left;
+}
+
+.centrar-boton{
+    align-items: center;
+}

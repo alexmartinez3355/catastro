@@ -5,21 +5,27 @@
     <div class="card-body">
         <form [formGroup]="inicioSesion" (ngSubmit)="login()">
             <div class="form-group">
+                <span class="from-text text-danger" *ngIf="emailObligatorio">
+                    Ingresa un correo valido.
+                </span>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
                             <fa-icon [icon]="faUserCircle" size="lg"></fa-icon>
                         </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Correo" formControlName="email">
+                    <input type="text" class="form-control" placeholder="Correo" formControlName="email" [class.is-invalid]="emailObligatorio" [class.is-valid]="emailValido">
                 </div>
+                <span class="from-text text-danger" *ngIf="passObligatorio">
+                    Ingresa una contraseña
+                </span>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
                             <fa-icon [icon]="faLock" size="lg"></fa-icon>
                         </span>
                     </div>
-                    <input type="password" class="form-control" placeholder="Constraseña" formControlName="pass">
+                    <input type="password" class="form-control" placeholder="Constraseña" formControlName="pass" [class.is-invalid]="passObligatorio" [class.is-valid]="passValido">
                 </div>
             </div>
 

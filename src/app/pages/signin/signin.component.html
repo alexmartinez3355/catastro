@@ -5,7 +5,7 @@
     <div class="card-body">
         <form [formGroup]="registro" (ngSubmit)="sigin()">
             <div class="form-group">
-                <span class="from-text text-danger" *ngIf="nombreNoValido">
+                <span class="form-text text-danger" *ngIf="nombreNoValido">
                     El nombre es requerido
                 </span>
                 <div class="input-group mb-3">
@@ -36,7 +36,7 @@
                     <input type="text" class="form-control" placeholder="Correo" formControlName="email" [class.is-invalid]="emailNoValido" [class.is-valid]="emailValido">
                 </div>
                 <span class="form-text text-danger" *ngIf="passNoValido">
-                    La contraseña debe tener por lo menos 6 caracteres
+                    La contraseña debe tener por lo menos 8 caracteres
                 </span>
                 <div class="input-group mb-3">
                     <input type="password" class="form-control" placeholder="Contraseña" formControlName="pass" [class.is-invalid]="passNoValido" [class.is-valid]="passValido">

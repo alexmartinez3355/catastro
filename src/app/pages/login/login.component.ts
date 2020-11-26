@@ -29,34 +29,54 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.usuario.email = this.inicioSesion.get('email').value;
-    this.usuario.pass = this.inicioSesion.get('pass').value;
+    if (this.inicioSesion.invalid) {
+      return Object.values(this.inicioSesion.controls).forEach(control => {
+        control.markAllAsTouched();
+      });
+    }
+    this.usuario.setEmail = this.inicioSesion.get('email').value;
+    this.usuario.setPass = this.inicioSesion.get('pass').value;
     this.generalService.login(this.usuario).subscribe((datos: UsuarioModel) => {
-      if (Object.keys(datos).length >= 1) {
-        this.usuarioEncontrado(datos);
-        this.generalService.setSesionStorage(datos, 'usuario_activo');
-        this.generalService.setUserLogin(datos);
-        this.generalService.asignarRolUsuario(datos.rol);
+      if (datos.getId !== undefined) {
+        this.usuario = UsuarioModel.instanciaUsuario(datos);
+        this.generalService.setSessionStorage(this.usuario, 'usuario_activo');
+        this.generalService.setUserLogin(this.usuario);
         this.router.navigateByUrl('inicio');
+        this.usuarioEncontrado(this.usuario);
       }
-      else{
+      else {
         this.usuarioNoEncontrado();
+        this.inicioSesion.reset();
       }
     });
   }
 
   crearFormulario(): void {
     this.inicioSesion = this.fb.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       pass: ['', [Validators.required]]
     });
+  }
+
+  get emailObligatorio(): boolean {
+    return this.inicioSesion.get('email').invalid && this.inicioSesion.get('email').touched;
+  }
+  get emailValido(): boolean {
+    return this.inicioSesion.get('email').valid && this.inicioSesion.get('email').touched;
+  }
+
+  get passObligatorio(): boolean {
+    return this.inicioSesion.get('pass').invalid && this.inicioSesion.get('pass').touched;
+  }
+  get passValido(): boolean {
+    return this.inicioSesion.get('pass').valid && this.inicioSesion.get('pass').touched;
   }
 
   usuarioEncontrado(usuario: UsuarioModel): void{
     Swal.fire({
       icon: 'success',
-      title: 'Bien venido',
-      text: `${usuario.nombre}`
+      title: 'Bienvenido(a)',
+      text: `${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`
     });
   }
 

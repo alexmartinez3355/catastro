@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" routerLink="inicio">Home</a>
+    <a class="navbar-brand" routerLink="inicio"> <fa-icon [icon]="inicio" size="lg"></fa-icon> Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -7,30 +7,30 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 'cliente'">
-                <a class="nav-link" routerLink="solicitar-cita">Solicitar cita</a>
+            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.userLogin.rol === 'cliente'">
+                <a class="nav-link" routerLink="solicitar-cita"><fa-icon [icon]="solicitarCita" size="lg"></fa-icon> Solicitar cita</a>
             </li>
-            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 'cliente'">
-                <a class="nav-link" routerLink="consultar-cita">Consultar citas</a>
+            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.userLogin.rol === 'cliente'">
+                <a class="nav-link" routerLink="consultar-cita"><fa-icon [icon]="consultarCita" size="lg"></fa-icon> Consultar citas</a>
             </li>
-            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 'cliente'">
-                <a class="nav-link" routerLink="cancelar-cita">Cancelar cita</a>
+            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.userLogin.rol === 'cliente'">
+                <a class="nav-link" routerLink="cancelar-cita"><fa-icon [icon]="eliminarCita" size="lg"></fa-icon> Cancelar cita</a>
             </li>
-            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.rolUsuario == 'admin'">
-                <a class="nav-link" routerLink="citas">Citas</a>
+            <li class="nav-item" routerLinkActive="active" *ngIf="generalService.userLogin.rol === 'admin'">
+                <a class="nav-link" routerLink="citas"><fa-icon [icon]="citas" size="lg"></fa-icon> Citas</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <button class="btn btn-outline-primary btn-sm botones" type="button" routerLink="signin"
-                *ngIf="generalService.rolUsuario == ''">Registrarse</button>
+                *ngIf="generalService.userLogin.getRol === undefined"> <fa-icon [icon]="registrarse" size="lg"></fa-icon> Registrarse</button>
 
             <button class="btn btn-outline-primary btn-sm botones" type="button" routerLink="login"
-                *ngIf="generalService.rolUsuario == ''">Entrar</button>
+                *ngIf="generalService.userLogin.getRol === undefined"> <fa-icon [icon]="entrar" size="lg"></fa-icon> Entrar</button>
 
-            <div class="dropdown" *ngIf="generalService.rolUsuario">
+            <div class="dropdown" *ngIf="generalService.userLogin.getId !== undefined">
                 <button class="btn btn-outline-primary dropdown-toggle botones" type="button" id="usuarioDropdown"
-                    data-toggle="dropdown">
-                    {{generalService.userLogin.nombre}} {{generalService.userLogin.apellidoPaterno}} {{generalService.userLogin.apellidoMaterno}}
+                    data-toggle="dropdown"> <fa-icon [icon]="entrar" size="lg"></fa-icon>
+                    {{generalService.userLogin.nombreCompleto}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="usuarioDropdown">
                     <a class="dropdown-item" routerLink="configuracion"><fa-icon [icon]="configuracion" size="lg"></fa-icon>    Configuración</a>

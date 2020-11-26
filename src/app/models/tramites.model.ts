@@ -4,9 +4,43 @@ export class TramiteModel {
     nombreTramite?: string;
     departamento?: DepartamentoModel;
 
-    constructor(){
-        this.idTramite = null;
-        this.nombreTramite = null;
-        this.departamento = new DepartamentoModel();
+    constructor(id?: string, nombre?: string, departamento?: DepartamentoModel){
+        this.idTramite = id;
+        this.nombreTramite = nombre;
+        this.departamento = departamento;
+    }
+
+    static instanciarTramite(obj: TramiteModel): any{
+        return new TramiteModel(
+            obj.idTramite,
+            obj.nombreTramite,
+            obj.departamento
+        );
+    }
+
+    /* Setters */
+    set setIdTramite(id: string){
+        this.idTramite = id;
+    }
+
+    set setNombreTramite(nombre: string){
+        this.nombreTramite = nombre;
+    }
+
+    set setDepartamento(departamento: DepartamentoModel){
+        this.departamento = departamento;
+    }
+
+    /* Getters */
+    get getIdTramite(): string {
+        return this.idTramite;
+    }
+
+    get getNombreTramite(): string{
+        return this.nombreTramite;
+    }
+
+    get getDepartamento(): DepartamentoModel{
+        return this.departamento;
     }
 }
