@@ -48,6 +48,8 @@ export class LoginComponent implements OnInit {
         this.usuarioNoEncontrado();
         this.inicioSesion.reset();
       }
+    }, error => {
+      console.log('Tengo un error: ', error);
     });
   }
 
