@@ -35,12 +35,12 @@ export class ConsultarCitaComponent implements OnInit {
 
   descargarPDF(folioCita): void {
     const pdf = {
-      id: '14'
+      id: folioCita
     };
-    console.log(pdf);
+    /* console.log(pdf); */
     this.consultarCitaService.descargarPDF(pdf).subscribe(
       (datos) => {
-      console.log(datos);
+      /* console.log(datos); */
       this.downLoadFile(datos, 'application/pdf');
     }, (eror) => {
       console.log('Tengo un errror', eror);
